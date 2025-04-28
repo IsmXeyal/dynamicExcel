@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -23,7 +25,14 @@ public class ExcelController {
 
     @GetMapping("/export")
     public ResponseEntity<String> exportExcel() {
-        String outputFilePath = "exported_excel_file.xlsx";
+        String userHome = System.getProperty("user.home");  // Example: C:/Users/Asus
+        String downloadsDir = userHome + File.separator + "Downloads"; // C:/Users/Asus/Downloads
+
+        String timestamp = new java.text.SimpleDateFormat("yyyyMMdd_HHmmss").format(new java.util.Date());
+        String filename = "exported_excel_file_" + timestamp + ".xlsx";
+
+        String outputFilePath = downloadsDir + File.separator + filename;
+
         excelExportService.exportDatabaseToExcel(outputFilePath);
         return ResponseEntity.ok("Excel file exported successfully to " + outputFilePath);
     }
