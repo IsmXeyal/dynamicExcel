@@ -46,10 +46,10 @@ public class ExcelUtil {
                             break;
                         case NUMERIC:
                             if (DateUtil.isCellDateFormatted(cell)) {
-                                cellValue = "'" + cell.getDateCellValue().toInstant()
+                                cellValue = cell.getDateCellValue().toInstant()
                                         .atZone(ZoneId.systemDefault())
                                         .toLocalDate()
-                                        .toString() + "'";
+                                        .toString();
                             } else {
                                 double numericValue = cell.getNumericCellValue();
                                 if (numericValue == (int) numericValue) {
